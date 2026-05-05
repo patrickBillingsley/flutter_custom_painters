@@ -5,17 +5,19 @@ import 'package:flutter/widget_previews.dart';
 
 class GlowSlider extends StatefulWidget {
   @Preview(name: 'GlowSlider')
-  const GlowSlider({super.key, this.maxGlowAtCenter = true}) : divisions = null;
+  const GlowSlider({super.key, this.maxGlowAtCenter = true}) : segments = null, divideOnSegments = false;
 
   @Preview(name: 'Segmented GlowSlider')
   const GlowSlider.segmented({
     super.key,
-    this.divisions = 10,
+    this.segments = 10,
     this.maxGlowAtCenter = false,
+    this.divideOnSegments = true,
   });
 
-  final int? divisions;
+  final int? segments;
   final bool maxGlowAtCenter;
+  final bool divideOnSegments;
 
   @override
   State<GlowSlider> createState() => _GlowSliderState();
@@ -37,7 +39,7 @@ class _GlowSliderState extends State<GlowSlider> {
         sliderTheme: Theme.of(context).sliderTheme.copyWith(
           thumbShape: GlowSliderThumbShape(maxAtCenter: widget.maxGlowAtCenter),
           thumbColor: Theme.of(context).scaffoldBackgroundColor,
-          trackShape: GlowSliderTrackShape(divisions: widget.divisions),
+          trackShape: GlowSliderTrackShape(segments: widget.segments),
           activeTrackColor: const Color(0xFFA7F5FB),
           inactiveTrackColor: const Color(0xFF1D766E),
           overlayColor: const Color(0xFFA7F5FB).withValues(alpha: 0.05),
@@ -48,7 +50,7 @@ class _GlowSliderState extends State<GlowSlider> {
       child: Slider(
         onChanged: _setValue,
         value: _value,
-        divisions: widget.divisions,
+        divisions: widget.divideOnSegments ? widget.segments : null,
       ),
     );
   }
