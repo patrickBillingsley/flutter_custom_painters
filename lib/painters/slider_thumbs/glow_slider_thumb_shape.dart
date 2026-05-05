@@ -69,6 +69,7 @@ class GlowSliderThumbShape extends SliderComponentShape {
       maxAtCenter ? glowFactor : value,
     )!;
 
+    // -- Glow -- //
     canvas.drawCircle(
       center,
       radius + sigma * 0.5,
@@ -77,20 +78,20 @@ class GlowSliderThumbShape extends SliderComponentShape {
         ..maskFilter = MaskFilter.blur(BlurStyle.normal, sigma),
     );
 
+    // -- Fill -- //
     canvas.drawCircle(
       center,
       radius,
-      Paint()
-        ..color = sliderTheme.thumbColor!
-        ..style = PaintingStyle.fill,
+      Paint()..color = sliderTheme.thumbColor!,
     );
 
+    // -- Stroke -- //
     canvas.drawCircle(
       center,
       radius,
       Paint()
-        ..color = strokeColor
         ..style = PaintingStyle.stroke
+        ..color = strokeColor
         ..strokeWidth = strokeWidth,
     );
   }
