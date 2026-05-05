@@ -5,12 +5,13 @@ import 'package:flutter/widget_previews.dart';
 
 class GlowRangeSlider extends StatefulWidget {
   @Preview(name: 'GlowRangeSlider')
-  const GlowRangeSlider({super.key}) : divisions = null;
+  const GlowRangeSlider({super.key}) : segments = null, divideOnSegments = false;
 
   @Preview(name: 'Segmented GlowRangeSlider')
-  const GlowRangeSlider.segmented({super.key, this.divisions = 10});
+  const GlowRangeSlider.segmented({super.key, this.segments = 10, this.divideOnSegments = true});
 
-  final int? divisions;
+  final int? segments;
+  final bool divideOnSegments;
 
   @override
   State<GlowRangeSlider> createState() => _GlowRangeSliderState();
@@ -32,18 +33,17 @@ class _GlowRangeSliderState extends State<GlowRangeSlider> {
         sliderTheme: Theme.of(context).sliderTheme.copyWith(
           rangeThumbShape: GlowRangeSliderThumbShape(),
           thumbColor: Theme.of(context).scaffoldBackgroundColor,
-          rangeTrackShape: GlowRangeSliderTrackShape(divisions: widget.divisions),
+          rangeTrackShape: GlowRangeSliderTrackShape(segments: widget.segments),
           activeTrackColor: const Color(0xFFA7F5FB),
           inactiveTrackColor: const Color(0xFF1D766E),
           overlayColor: const Color(0xFFA7F5FB).withValues(alpha: 0.05),
           inactiveTickMarkColor: Colors.transparent,
-          activeTickMarkColor: Colors.transparent,
         ),
       ),
       child: RangeSlider(
         onChanged: _setRange,
         values: _range,
-        divisions: widget.divisions,
+        divisions: widget.divideOnSegments ? widget.segments : null,
       ),
     );
   }
